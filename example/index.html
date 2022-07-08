@@ -28,13 +28,17 @@
 
 <script>
     /* html2json */
-    console.log( html2json(document.querySelector('main')) );
+    var JfIL2 = html2json(document.querySelector('main'));
+    console.log( JfIL2 );
 
     /* jsontohtml */
-    console.log(jsontohtml( JSON.parse( html2json(document.querySelector('main') ) ) ) );
+    var UwQX = JSON.parse( html2json(document.querySelector('main') ) );
+    var urxsV23 = jsontohtml( UwQX );
 
-    var urxsV23 = jsontohtml( JSON.parse( html2json(document.querySelector('main') ) ) );
     document.querySelector('body').append(urxsV23);
+
+    console.log( jsontohtml( UwQX ) );
+    
 
 </script>
 </html>
