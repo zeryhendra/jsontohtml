@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Json to html</title>
+</head>
+<body>
+    <main id='KLdE'>
+        <div id="kLeWq" class="crvx ssVrw QrdWF">
+            <input id="btn" class="nQwE rTQw" type="button" value="Button 1" disabled>
+            <br>
+            <div>
+                <ul>
+                    <li><a href="/a">a</a></li>
+                    <li><a href="/b">b</a></li>
+                    <li><a href="/c">c</a></li>
+                </ul>
+            </div>
+            <p>Hello world</p>
+        </div>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, laudantium dolor necessitatibus cupiditate corrupti error quod nulla pariatur fugit ab odit explicabo inventore! Qui ut porro dolorem illum laboriosam quisquam?</p>
+    </main>
+</body>
+<script src="html2json.js"></script>
+<script src="jsontohtml.js"></script>
+
+<script>
+
+    console.log(jsontohtml( JSON.parse( html2json(document.querySelector('main') ) ) ) );
+
+    var urxsV23 = jsontohtml( JSON.parse( html2json(document.querySelector('main') ) ) );
+    document.querySelector('body').append(urxsV23);
+
+</script>
+</html>
