@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main id="main">
+        <div>
+            <div>
+                <div id="contents">
+                    <ul>
+                        <li>a</li>
+                        <li>b</li>
+                        <li>c</li>
+                    </ul>
+                </div>
+
+                <p>hello world</p>
+            </div>
+        </div>
+
+        <p>hi</p>
+    </main>
+</body>
+<script>
+    /* https://stackoverflow.com/questions/12980648/map-html-to-json */
+    /* html2json */
+    const TextElem = e => ({
+      type:
+        'TextElem',
+      textContent:
+        e.textContent
+    })
+
+    const Elem = e => ({
+      type:
+        'Elem',
+      tagName:
+        e.tagName,
+      attributes:
+        Array.from(e.attributes, ({name, value}) => [name, value]),
+      children:
+        Array.from(e.childNodes, fromNode)
+    })
+
+    const fromNode = e => {
+      switch (e?.nodeType) {
+        case 1: return Elem(e)
+        case 3: return TextElem(e)
+        default: throw Error(`unsupported nodeType: ${e.nodeType}`)
+      }
+    }
+
+    const html2json = e =>
+      JSON.stringify(Elem(e), null, '  ')
+</script>
+
+<script>
+    /* json to html */
+    function jsontohtml(t, newItem) {
+        let p, n;
+        if (newItem != null) { 
+            switch (newItem?.type) {
+                case 'TextElem': 
+                    n = newItem.textContent;
+                    t.append(n)
+                    break;
+
+                case 'Elem':
+                    n = document.createElement(newItem.tagName);
+
+                    // attributes 
+                    if (typeof newItem.attributes != 'undefined' && newItem.attributes != null && newItem.attributes.length != null && newItem.attributes.length > 0) {
+                        for (let no=0; no < newItem.attributes.length; no++) {
+                            n.setAttribute(newItem.attributes[no][0], newItem.attributes[no][1]);
+                        }
+                    }
+
+                    t.append(n);
+                    
+                    Array.from(newItem.children, i => {
+                        return jsontohtml( n , i );
+                    })
+                    break;
+                    
+                default: break;
+            }
+            
+        }
+        else {
+            p = document.createElement(t.tagName);
+
+            // attributes
+            if (typeof t.attributes != 'undefined' && t.attributes != null && t.attributes.length != null && t.attributes.length > 0) {
+                for (let no=0; no < t.attributes.length; no++) {
+                    p.setAttribute(t.attributes[no][0], t.attributes[no][1]);
+                }
+            }
+
+            Array.from(t.children, i => {
+                return jsontohtml( p, i )
+            })
+        }
+
+        
+        if (p === undefined || p === null) {
+            // console.log('Null or undefined value!')
+        }
+        else {
+            // console.log(p)
+            return p;
+        }
+    }
+
+    console.log(jsontohtml( JSON.parse( html2json(document.querySelector('main') ) ) ) );
+    
+    var urxsV23 = jsontohtml( JSON.parse( html2json(document.querySelector('main') ) ) );
+    document.querySelector('body').append(urxsV23);
+    
+</script>
+</html>
