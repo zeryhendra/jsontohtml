@@ -1,10 +1,14 @@
 # json to html (Javascript)
 
 <b>example</b> <br>
-console.log( jsontohtml( JSON.parse( html2json(document.querySelector('main') ) ) ) ) <br>
+console.log( jsontohtml( JSON.parse( ...json... ) ) ) <br>
 <b>or</b><br>
-var urxsV23 = jsontohtml( JSON.parse( html2json(document.querySelector('main') ) ) ); <br>
+var json = html2json(document.querySelector('main') );
+var urxsV23 = jsontohtml( JSON.parse( json ) ); <br>
 document.querySelector('body').append(urxsV23) <br>
+
+<br><br>
+see example from implementation : https://github.com/zeryhendra/jsontohtml/tree/main/example
 
 <br>
 <b>reference</b> <br>
