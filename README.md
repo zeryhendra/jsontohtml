@@ -8,7 +8,7 @@ var newhtml = jsontohtml( JSON.parse( json ) ); <br>
 document.querySelector('body').append( newhtml ); <br>
 
 <br><br>
-see example from implementation : https://github.com/zeryhendra/jsontohtml/tree/main/example
+see example for implementation : https://github.com/zeryhendra/jsontohtml/tree/main/example
 
 <br>
 <b>reference</b> <br>
