@@ -5,7 +5,7 @@
 var json = html2json(document.querySelector('main') ); <br>
 var newhtml = jsontohtml( JSON.parse( json ) ); <br>
 <br>
-document.querySelector('body').append( newhtml ) <br>
+document.querySelector('body').append( newhtml ); <br>
 
 <br><br>
 see example from implementation : https://github.com/zeryhendra/jsontohtml/tree/main/example
