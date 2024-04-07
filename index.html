@@ -60,65 +60,58 @@
 
 <script>
     /* json to html */
-    function jsontohtml(t, newItem) {
-        let p, n;
-        if (newItem != null) { 
-            switch (newItem?.type) {
+    function jsontohtml(jsonItem) {
+        let p;
+        if (jsonItem != null) { 
+            switch (jsonItem?.type) {
                 case 'TextElem': 
-                    n = newItem.textContent;
-                    t.append(n)
+                    p = document.createTextNode(jsonItem.textContent);
                     break;
-
+    
                 case 'Elem':
-                    n = document.createElement(newItem.tagName);
-
+                    p = document.createElement(jsonItem.tagName);
+    
                     // attributes 
-                    if (typeof newItem.attributes != 'undefined' && newItem.attributes != null && newItem.attributes.length != null && newItem.attributes.length > 0) {
-                        for (let no=0; no < newItem.attributes.length; no++) {
-                            n.setAttribute(newItem.attributes[no][0], newItem.attributes[no][1]);
+                    if (typeof jsonItem.attributes != 'undefined' && jsonItem.attributes != null && jsonItem.attributes.length != null && jsonItem.attributes.length > 0) {
+                        for (let no=0; no < jsonItem.attributes.length; no++) {
+                            p.setAttribute(jsonItem.attributes[no][0], jsonItem.attributes[no][1]);
                         }
                     }
-
-                    t.append(n);
-                    
-                    Array.from(newItem.children, i => {
-                        return jsontohtml( n , i );
-                    })
+    
+                    Array.from(jsonItem.children, child => {
+                        const childElement = jsontohtml(child);
+                        p.appendChild(childElement);
+                    });
                     break;
                     
                 default: break;
             }
-            
         }
         else {
-            p = document.createElement(t.tagName);
-
+            p = document.createElement(jsonItem.tagName);
+    
             // attributes
-            if (typeof t.attributes != 'undefined' && t.attributes != null && t.attributes.length != null && t.attributes.length > 0) {
-                for (let no=0; no < t.attributes.length; no++) {
-                    p.setAttribute(t.attributes[no][0], t.attributes[no][1]);
+            if (typeof jsonItem.attributes != 'undefined' && jsonItem.attributes != null && jsonItem.attributes.length != null && jsonItem.attributes.length > 0) {
+                for (let no=0; no < jsonItem.attributes.length; no++) {
+                    p.setAttribute(jsonItem.attributes[no][0], jsonItem.attributes[no][1]);
                 }
             }
-
-            Array.from(t.children, i => {
-                return jsontohtml( p, i )
-            })
+    
+            Array.from(jsonItem.children, child => {
+                const childElement = jsontohtml(child);
+                p.appendChild(childElement);
+            });
         }
-
-        
-        if (p === undefined || p === null) {
-            // console.log('Null or undefined value!')
-        }
-        else {
-            // console.log(p)
-            return p;
-        }
+    
+        return p;
     }
+
+
 
     console.log(jsontohtml( JSON.parse( html2json(document.querySelector('main') ) ) ) );
     
-    var urxsV23 = jsontohtml( JSON.parse( html2json(document.querySelector('main') ) ) );
-    document.querySelector('body').append(urxsV23);
+    var newhtml = jsontohtml( JSON.parse( html2json(document.querySelector('main') ) ) );
+    document.querySelector('body').append( newhtml );
     
 </script>
 </html>
